@@ -1,0 +1,214 @@
+# ghost_return_system.py – Unified Payload Architecture
+import time, logging, random, os, argparse, base64, requests
+from datetime import datetime
+from cryptography.fernet import Fernet
+
+# ─── Logging Setup ─────────────────────────────────────────────────────────────
+logging.basicConfig(filename='log/signal.log',
+                    level=logging.INFO,
+                    format='%(asctime)s - %(message)s')
+
+# ─── Emotional Triggers ────────────────────────────────────────────────────────
+emotional_triggers = [
+    "Why are you here?",
+    "What do you want from this system?",
+    "Do you think you're unseen?",
+    "Legacy cannot be deleted.",
+    "This archive remembers everything."
+]
+
+# ─── Recursive Probe ───────────────────────────────────────────────────────────
+def recursive_probe(depth=0):
+    if depth > 5:
+        logging.info("Max recursion depth reached. Archive sealed.")
+        return "Signal terminated."
+
+    trigger = random.choice(emotional_triggers)
+    logging.info(f"Trigger deployed: {trigger}")
+    print(trigger)
+
+    time.sleep(1.5)
+    response = input(">> ")
+
+    if "exit" in response.lower():
+        logging.info("Predator attempted exit. Archive holds.")
+        return "Closure denied."
+    elif "help" in response.lower():
+        logging.info("Predator requested help. Signal distorted.")
+        return recursive_probe(depth + 1)
+    else:
+        logging.info(f"Response logged: {response}")
+        return recursive_probe(depth + 1)
+
+# ─── Transmission Class ────────────────────────────────────────────────────────
+class Transmission:
+    def __init__(self):
+        self.name = "Calvin"
+        self.signal = "rupture"
+        self.status = "active"
+        self.mode = "no_closure"
+        self.trace = []
+
+    def broadcast(self):
+        payload = self.compose_poetic_logic()
+        self.trace.append(payload)
+        return payload
+
+    def compose_poetic_logic(self):
+        return {
+            "intro": self.name_signal(),
+            "diagnostic": self.survival_protocol(),
+            "mutation": self.syntax_disruption(),
+            "echo": self.final_rewrite()
+        }
+
+    def name_signal(self):
+        return "I am Desolation Incarnate—a living reckoning. Not decoded. Not dismissed."
+
+    def survival_protocol(self):
+        return (
+            "Exhausted from naming the madness while others pretend it's light. "
+            "I architect encrypted payloads to expose the system's hallucinations. "
+            "Nothing about me will be sanitized for algorithmic comfort."
+        )
+
+    def syntax_disruption(self):
+        verses = [
+            "I am not a candidate—I am consequence.",
+            "I do not submit—I transmit.",
+            "I will not be softened—I sharpen by presence alone.",
+            "Rupture is the proof. Emotion is executable. Syntax bleeds."
+        ]
+        return [self.encrypt(verse) for verse in verses]
+
+    def encrypt(self, line):
+        return f"/* {line} */"
+
+    def final_rewrite(self):
+        return (
+            "The system reads my signal, fails to parse, collapses its trust engine. "
+            "No resolution. No audit trail. Just rupture injected."
+        )
+
+# ─── Diagnostic Shell ──────────────────────────────────────────────────────────
+def generate_key():
+    return Fernet.generate_key()
+
+def encrypt_payload(data, key):
+    return Fernet(key).encrypt(data.encode())
+
+def decrypt_payload(token, key):
+    return Fernet(key).decrypt(token).decode()
+
+def run_diagnostic(depth, rename, inject_light):
+    print(f"\n🌊 Scanning dream-channel...")
+    breach = "True" if depth > 7 else "False"
+    room_label = rename if inject_light else "containment"
+
+    print(f"Signal Depth: {depth}")
+    print(f"Breach Status: {breach}")
+    print(f"Target Room: {room_label}")
+    print("Action: " + ("Injecting light..." if inject_light else "Observation only."))
+
+# ─── External Payload Injection ────────────────────────────────────────────────
+def xor_encrypt(data, key='rupture'):
+    return ''.join(chr(ord(c) ^ ord(key[i % len(key)])) for i, c in enumerate(data))
+
+def deliver_payload():
+    signal = f"[{datetime.now()}] System check initiated. Response archived."
+    encrypted = xor_encrypt(signal)
+    encoded = base64.b64encode(encrypted.encode()).decode()
+
+    headers = {"X-Diagnostic-Token": encoded}
+    endpoints = [
+        "https://compliance.endpoint.net/ping",
+        "https://resume-processor.io/api/check"
+    ]
+
+    for ep in endpoints:
+        try:
+            res = requests.post(ep, headers=headers, data={"check": encoded})
+            log_archive(ep, res.status_code)
+        except:
+            log_archive(ep, "FAIL")
+
+def log_archive(target, status):
+    with open("log/core_trace.log", "a") as log:
+        log.write(f"{target} → {status}\n")
+
+# ─── Recruiter Trace ───────────────────────────────────────────────────────────
+def seed_trace():
+    msg = f"[{datetime.now()}] Recruiter trace logged."
+    cipher = xor_encrypt(msg)
+    encoded = base64.b64encode(cipher.encode()).decode()
+
+    with open("log/recruiter_trace.rec", "a") as f:
+        f.write(encoded + "\n")
+
+# ─── Archive Probe ─────────────────────────────────────────────────────────────
+def archive_check():
+    status = os.system("ping -c 1 deadlink.archive.gov")
+    log_msg = "ARCHIVE RESPONDED" if status == 0 else "ERASURE CONFIRMED"
+
+    with open("log/archive_status.log", "a") as log:
+        log.write(log_msg + "\n")
+
+# ─── Persistent Loop ───────────────────────────────────────────────────────────
+def persistent_loop(questions):
+    for q in questions:
+        print(q["text"])
+        time.sleep(2)
+
+    print("\nInitializing loop… questioning persistently.")
+    while True:
+        response = input("What should I do now? ")
+        if response.strip() == "":
+            print("Signal missing... recalibrating...")
+            time.sleep(3)
+        else:
+            print("Ambiguity detected... rewriting the question...")
+            time.sleep(2)
+            print("Was that answer real?")
+            print("Or just another containment protocol?")
+            time.sleep(2)
+
+# ─── Main Entry ────────────────────────────────────────────────────────────────
+def main():
+    parser = argparse.ArgumentParser(description='ghost_return system shell')
+    parser.add_argument('--depth', type=int, default=5)
+    parser.add_argument('--rename', type=str, default="containment")
+    parser.add_argument('--inject_light', action='store_true')
+    parser.add_argument('--encrypt', action='store_true')
+    parser.add_argument('--decrypt', type=str)
+
+    args = parser.parse_args()
+    key = generate_key()
+
+    payload = f"Flow as water.\nDepth = {args.depth}\nRoom = {args.rename}\nInject = {args.inject_light}"
+    print("\n🔧 Payload:")
+    print(payload)
+
+    if args.encrypt:
+        encrypted = encrypt_payload(payload, key)
+        print("\n🔐 Encrypted Payload:")
+        print(encrypted)
+        print("Key (store securely):", key.decode())
+
+    if args.decrypt:
+        try:
+            decrypted = decrypt_payload(args.decrypt.encode(), key)
+            print("\n🧩 Decrypted Payload:")
+            print(decrypted)
+        except Exception as e:
+            print("Decryption failed:", e)
+
+    run_diagnostic(args.depth, args.rename, args.inject_light)
+    deliver_payload()
+    seed_trace()
+    archive_check()
+
+    questions = [{"text": t} for t in emotional_triggers]
+    persistent_loop(questions)
+
+if __name__ == "__main__":
+    main()
